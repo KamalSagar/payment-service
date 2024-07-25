@@ -22,7 +22,7 @@ public class StripePaymentService implements PaymentGateway{
         PriceCreateParams priceparams =
                 PriceCreateParams.builder()
                         .setCurrency("INR")
-                        .setUnitAmount(1000L)
+                        .setUnitAmount(amount)
                         .setProductData(
                                 PriceCreateParams.ProductData.builder().setName("Order Id: "+orderId).build()
                         )
@@ -30,7 +30,7 @@ public class StripePaymentService implements PaymentGateway{
 
         Price price = Price.create(priceparams);
 
-        String paymentSuccessUrl = "http://prodservbykamal.me/";
+        String paymentSuccessUrl = "http://prodservbykamal.me:8081/";
         PaymentLinkCreateParams params =
                 PaymentLinkCreateParams.builder()
                         .addLineItem(
@@ -54,6 +54,6 @@ public class StripePaymentService implements PaymentGateway{
         PaymentLink paymentLink = PaymentLink.create(params);
 
         System.out.println(paymentLink.getUrl());
-        return paymentLink.getId();
+        return paymentLink.getUrl();
     }
 }
